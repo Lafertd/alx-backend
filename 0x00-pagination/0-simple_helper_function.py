@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
 module that contain a simple helper function
 """
