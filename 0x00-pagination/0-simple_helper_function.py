@@ -1,3 +1,6 @@
+"""
+module that contain a simple helper function
+"""
 def index_range(page: int, page_size: int) -> tuple:
     """
     Calculate the start and end indices for the items in a given page
