@@ -45,23 +45,14 @@ class Server:
 
         return self.__dataset
 
-    def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
+def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
+        """Retrieves a page of data.
         """
-        Get a page from the dataset
-
-        Args:
-        page (int): The 1-indexed number of the page
-        page_size (int): The number of items in a page
-
-        Returns:
-        List[List]: A list of rows corresponding to the requested page
-        """
-
-        data_object = Server.dataset(self)
-        assert isinstance(page, int) and isinstance(page_size, int)
+        assert type(page) == int and type(page_size) == int
         assert page > 0 and page_size > 0
-        interval = index_range(page, page_size)
-        if interval[0] > len(data_object):
+        start, end = index_range(page, page_size)
+        data = self.dataset()
+        if start > len(data):
             return []
         return data[start:end]
 
