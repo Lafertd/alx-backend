@@ -61,7 +61,7 @@ class Server:
         assert isinstance(page, int) and isinstance(page_size, int)
         assert page > 0 and page_size > 0
         interval = index_range(page, page_size)
-        if interval[0] >= len(data_object) or interval[1] < 0:
+        if interval[0] >= len(data_object):
             return []
 
         result = [row for row in data_object[interval[0]: interval[1]]]
