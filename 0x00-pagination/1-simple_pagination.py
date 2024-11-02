@@ -44,8 +44,9 @@ class Server:
     def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
         """
         """
+        if 
         data_object = Server.dataset(self)
-        assert isinstance(page, int) and isinstance
+        assert isinstance(page, int) and isinstance(page_size, int)
         assert page > 0 and page_size > 0
         interval = index_range(page, page_size)
         result = [row for row in data_object[interval[0]: interval[1]]]
