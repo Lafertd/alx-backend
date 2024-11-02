@@ -56,10 +56,13 @@ class Server:
         Returns:
         List[List]: A list of rows corresponding to the requested page
         """
+       
         data_object = Server.dataset(self)
         assert type(page) == int and type(page_size) == int
         assert page > 0 and page_size > 0
         interval = index_range(page, page_size)
+        if interval[0] >= len(data_object) or interval[1] < 0:
+            return []
         
         result = [row for row in data_object[interval[0]: interval[1]]]
         return result
