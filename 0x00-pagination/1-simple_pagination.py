@@ -62,7 +62,7 @@ class Server:
         assert page > 0 and page_size > 0
         interval = index_range(page, page_size)
         if interval[0] >= len(data_object):
-            return []
+        return []
 
         result = [row for row in data_object[interval[0]: interval[1]]]
         return result
