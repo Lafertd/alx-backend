@@ -75,17 +75,21 @@ class Server:
         page (int):
 
         Returns:
-        dict{}: dictionary containing the page_size, page, data, next_page, prev_page, total_pages
+        dict{}: dictionary containing the page_size,
+        page, data, next_page, prev_page, total_pages
 
         """
-        page_data = self.get_page(page, page_size) # list[list] of get_page()
-        start, end = index_range(page, page_size) # tuple(start, end)
+        page_data = self.get_page(page, page_size)  # list[list] of get_page()
+        start, end = index_range(page, page_size)   # tuple(start, end)
 
         data = page_data
         page_size = len(data)
         next_page = page + 1
         prev_page = page - 1
-        total_pages = math.ceil(len(self.dataset()) / page_size) if page_size > 0 else 0
+        if page_size > 0:
+            total_pages = math.ceil(len(self.dataset()) / page_size)
+        else:
+            total_pages = 0
 
         return {
             "page_size": page_size,
