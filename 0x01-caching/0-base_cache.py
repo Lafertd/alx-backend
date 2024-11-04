@@ -1,5 +1,5 @@
+#!/usr/bin/python3
 BasicCache = __import__('base_caching').BaseCaching
-
 class BasicCache(BasicCache):
 
     def put(self, key, item):
