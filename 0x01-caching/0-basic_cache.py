@@ -5,6 +5,7 @@ BasicCache module
 
 BasicCache = __import__('base_caching').BaseCaching
 
+
 class BasicCache(BasicCache):
     """
     BasicCache class that inherits from BaseCaching and implements
@@ -34,4 +35,4 @@ class BasicCache(BasicCache):
         """
         if key is None:
             return None
-        return self.cache_data.get(key)  # Return the value for the specified key
+        return self.cache_data.get(key)
