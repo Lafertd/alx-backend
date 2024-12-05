@@ -1,17 +1,11 @@
 #!/usr/bin/env python3
-"""Task 3: Deletion-resilient hypermedia pagination
+"""
+Deletion-resilient hypermedia pagination
 """
 
 import csv
 import math
-from typing import Dict, List, Tuple
-
-
-def index_range(page: int, page_size: int) -> Tuple[int, int]:
-    """Retrieves the index range from a given page and page size.
-    """
-
-    return ((page - 1) * page_size, ((page - 1) * page_size) + page_size)
+from typing import Dict, List
 
 
 class Server:
@@ -21,6 +15,7 @@ class Server:
 
     def __init__(self):
         self.__dataset = None
+        self.__indexed_dataset = None
 
     def dataset(self) -> List[List]:
         """Cached dataset
@@ -43,17 +38,6 @@ class Server:
                 i: dataset[i] for i in range(len(dataset))
             }
         return self.__indexed_dataset
-
-    def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
-        """Retrieves a page of data.
-        """
-        assert type(page) == int and type(page_size) == int
-        assert page > 0 and page_size > 0
-        start, end = index_range(page, page_size)
-        data = self.dataset()
-        if start > len(data):
-            return []
-        return data[start:end]
 
     def get_hyper_index(self, index: int = None, page_size: int = 10) -> Dict:
         """
