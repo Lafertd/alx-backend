@@ -56,27 +56,36 @@ class Server:
         return self.__indexed_dataset
 
     def get_hyper_index(self, index: int = None, page_size: int = 10) -> Dict:
-        """Retrieves info about a page from a given index and with a
-        specified size.
         """
-        data = self.indexed_dataset()
-        assert index is not None and index >= 0 and index <= max(data.keys())
-        page_data = []
-        data_count = 0
-        next_index = None
-        start = index if index else 0
-        for i, item in data.items():
-            if i >= start and data_count < page_size:
-                page_data.append(item)
-                data_count += 1
-                continue
-            if data_count == page_size:
-                next_index = i
-                break
-        page_info = {
-            'index': index,
-            'next_index': next_index,
-            'page_size': len(page_data),
-            'data': page_data,
+        use index and page_size, to return a dictionary
+        Args:
+            index - page index
+            page_size - page size
+        Return:
+            dictionary with current page,
+            page size,the data, and next index to query with
+        """
+        dataset = self.dataset()
+        total_pages = math.ceil(len(dataset) / page_size)
+
+        if index is None:
+            index = 0
+
+        assert 0 <= index < len(dataset), "Index out of range."
+
+        start_index = index
+        end_index = min(index + page_size, len(dataset))
+        data = dataset[start_index:end_index]
+
+        if end_index == len(dataset):
+            next_index = None
+        else:
+            next_index = end_index
+
+        return {
+            "index": start_index,
+            "next_index": next_index,
+            "page_size": page_size,
+            "data": data,
+            "total_pages": total_pages,
         }
-        return page_info
